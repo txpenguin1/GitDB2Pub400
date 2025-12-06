@@ -1,0 +1,71 @@
+     *************************************************************************
+     /*---------------------------------------------------------------------
+     /* Program Name:  ST002D
+     /* Program Description:  Status Code Add/Update Description
+     /* Program Narrative:  If an OID is passed in, then allow the user to
+     /*                      change the code description.  If there is no
+     /*                      OID allow the user to enter a new status code
+     /*                      and description.
+     /*
+     /* AFTER COMPILE:  CHGDSPF FILE(ST002D) RSTDSP(*YES)
+     /*
+     /* Change Log:
+     /* Marker  Name         Date      Narrative
+     /* ------  -----------  --------  -------------------------------------
+     /*         S.Meisinger  09/22/25  New Program
+     /*---------------------------------------------------------------------
+     **  Screen Generics
+     *************************************************************************
+     A                                      DSPSIZ(27 132 *DS4)
+     A                                      CHGINPDFT(UL FE)
+     A                                      MSGLOC(27)
+     A                                      INDARA
+     A                                      ERRSFL
+     A                                      PRINT
+     A                                      HELP
+     *************************************************************************
+     **  Header Format
+     *************************************************************************
+     A          R HEADER1
+     A                                      OVERLAY
+     A            TITLEA         1A  P
+      *
+     A            ##PROG        10A  O  1  2
+     A            TITLE1        80A     1 26
+     A                                      DSPATR(&TITLEA)
+     A                                  1123DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A            TITLE2        80A     2 26
+     A                                      DSPATR(&TITLEA)
+     A                                  2123TIME
+     *************************************************************************
+     **  Footer Format
+     *************************************************************************
+     A          R FOOTER1
+     A                                      OVERLAY
+     A            FERRMSGA       1A  P
+     A            FKEYSA         1A  P
+     A            FERRMSG       80A    24 22DSPATR(&FERRMSGA)
+     A            FKEYLINE     125A    26  3DSPATR(&FKEYSA)
+     *************************************************************************
+     **  Body Format
+     *************************************************************************
+     A          R BODY1
+     A                                      OVERLAY
+     A                                      CF08
+     A                                      CF12
+     A*            BDYTITLEA      1A  P
+     A            BDYCODEA       1A  P
+     A            BDYDESCA       1A  P
+     A            BDYTITLE      80A  O  7 24
+     A**                                      DSPATR(&BDYTITLEA)
+     A                                  9 16'Code:'
+     A            BDYCODE        2A  B  9 26
+     A                                      DSPATR(&BDYCODEA)
+     A                                 12  9'Description:'
+     A            BDYDESC       75A  B 12 26CHECK(LC)
+     A                                      DSPATR(&BDYDESCA)
+     *************************************************************************
+
+

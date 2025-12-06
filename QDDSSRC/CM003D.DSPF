@@ -1,0 +1,94 @@
+     *************************************************************************
+     /*---------------------------------------------------------------------
+     /* Program Name:  CM003D
+     /* Program Description:  Customer Master Mainenance and Add
+     /* Program Narrative:  If an OID is passed in, then allow the user to
+     /*                      maintain the informatoin.  If there is no OID
+     /*                      allow the user to enter a new customer information.
+     /*
+     /* AFTER COMPILE:  CHGDSPF FILE(CM003D) RSTDSP(*YES)
+     /*
+     /* Change Log:
+     /* Marker  Name         Date      Narrative
+     /* ------  -----------  --------  -------------------------------------
+     /*         S.Meisinger  09/24/25  New Program
+     /*---------------------------------------------------------------------
+     **  Screen Generics
+     *************************************************************************
+     A                                      DSPSIZ(27 132 *DS4)
+     A                                      CHGINPDFT(UL FE)
+     A                                      MSGLOC(27)
+     A                                      INDARA
+     A                                      ERRSFL
+     A                                      PRINT
+     A                                      HELP
+     *************************************************************************
+     **  Header Format
+     *************************************************************************
+     A          R HEADER1
+     A                                      OVERLAY
+     A            TITLEA         1A  P
+      *
+     A            ##PROG        10A  O  1  2
+     A            TITLE1        80A     1 26
+     A                                      DSPATR(&TITLEA)
+     A                                  1123DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A            TITLE2        80A     2 26
+     A                                      DSPATR(&TITLEA)
+     A                                  2123TIME
+     *************************************************************************
+     **  Footer Format
+     *************************************************************************
+     A          R FOOTER1
+     A                                      OVERLAY
+     A            FERRMSGA       1A  P
+     A            FKEYSA         1A  P
+     A            FERRMSG       80A    24 26DSPATR(&FERRMSGA)
+     A            FKEYLINE     125A    26  3DSPATR(&FKEYSA)
+     *************************************************************************
+     **  Body Format
+     *************************************************************************
+     A          R BODY1
+     A                                      OVERLAY
+     A                                      CF08
+     A                                      CF12
+     A            BDYADDA        1A  P
+     A            BDYMAINTA      1A  P
+     A            BDYOID    R        H      REFFLD(CUOID CUSTOMER)
+     A            BDYTITLE      80A  O  7 24
+     A                                  9  6'Customer Number:'
+     A            BDYNUMBER R        B  9 25REFFLD(CUNUM CUSTOMER)
+     A                                      DSPATR(&BDYADDA)
+     A                                 10  6'Customer Name:'
+     A            BDYNAME   R        B 10 25REFFLD(CUNAME CUSTOMER)
+     A                                      CHECK(LC)
+     A                                      DSPATR(&BDYMAINTA)
+     A                                 11  6'Address Line 1:'
+     A            BDYADD1   R        B 11 25REFFLD(CUADD1 CUSTOMER)
+     A                                      CHECK(LC)
+     A                                      DSPATR(&BDYMAINTA)
+     A                                 12  6'Address Line 2:'
+     A            BDYADD2   R        B 12 25REFFLD(CUADD2 CUSTOMER)
+     A                                      CHECK(LC)
+     A                                      DSPATR(&BDYMAINTA)
+     A                                 13  6'City:'
+     A            BDYCITY   R        B 13 25REFFLD(CUCITY CUSTOMER)
+     A                                      CHECK(LC)
+     A                                      DSPATR(&BDYMAINTA)
+     A                                 14  6'State:'
+     A            BDYSTATE  R        B 14 25REFFLD(CUST CUSTOMER)
+     A                                      CHECK(LC)
+     A                                      DSPATR(&BDYMAINTA)
+     A                                 15  6'Zip:'
+     A            BDYZIP    R        B 15 25REFFLD(CUZIP CUSTOMER)
+     A                                      CHECK(LC)
+     A                                      DSPATR(&BDYMAINTA)
+     A                                 16  6'Contact:'
+     A            BDYCONTACTR        B 16 25REFFLD(CUCONT CUSTOMER)
+     A                                      CHECK(LC)
+     A                                      DSPATR(&BDYMAINTA)
+     *************************************************************************
+
+

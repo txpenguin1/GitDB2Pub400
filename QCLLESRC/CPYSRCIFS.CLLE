@@ -1,0 +1,49 @@
+             PGM        PARM(&LIB)
+
+             DCL        VAR(&LIB) TYPE(*CHAR) LEN(10)
+
+             DCL        VAR(&FRPATH) TYPE(*CHAR) LEN(100)
+             DCL        VAR(&TOPATH) TYPE(*CHAR) LEN(100)
+             DCL        VAR(&IFSPATH) TYPE(*CHAR) LEN(16) VALUE('/home/TXPENGUIN/')
+
+             DCLF       FILE(QAFDMBRL) RCDFMT(QWHFDML)
+
+/**------------------------------------------------------**/
+/** Main Process ----------------------------------------**/
+/**------------------------------------------------------**/
+
+
+             DSPFD      FILE(&LIB/*ALL) TYPE(*MBRLIST) OUTPUT(*OUTFILE) OUTFILE(QTEMP/MBRL) +
+                          OUTMBR(*FIRST *REPLACE)
+
+             OVRDBF     FILE(QAFDMBRL) TOFILE(QTEMP/MBRL)
+
+ LOOP1:      RCVF
+             MONMSG     MSGID(CPF0864) EXEC(GOTO CMDLBL(EXIT))
+
+             IF         COND(&MLSEU = ' ') THEN(GOTO CMDLBL(LOOP1))
+
+             CHGVAR     VAR(&FRPATH) VALUE('/QSYS.LIB/' *CAT &MLLIB *TCAT '.LIB/' *CAT &MLFILE +
+                          *TCAT '.FILE/' *CAT &MLNAME *TCAT '.MBR')
+
+             CHGVAR     VAR(&TOPATH) VALUE(&IFSPATH *TCAT &MLLIB *TCAT '/')
+             CHKIN      OBJ(&TOPATH) SUBTREE(*ALL)
+             MONMSG     MSGID(CPFA0A9 CPFA0BE) EXEC(MKDIR DIR(&TOPATH))
+
+             CHGVAR     VAR(&TOPATH) VALUE(&TOPATH *TCAT &MLFILE *TCAT '/')
+             CHKIN      OBJ(&TOPATH) SUBTREE(*ALL)
+             MONMSG     MSGID(CPFA0A9 CPFA0BE) EXEC(MKDIR DIR(&TOPATH))
+
+             CHGVAR     VAR(&TOPATH) VALUE(&TOPATH *TCAT &MLNAME *TCAT '.' *CAT &MLSEU2)
+
+             CPYTOSTMF  FROMMBR(&FRPATH) TOSTMF(&TOPATH) STMFCCSID(*PCASCII)
+
+             GOTO       CMDLBL(LOOP1)
+/**------------------------------------------------------**/
+/** Exit Process ----------------------------------------**/
+/**------------------------------------------------------**/
+
+ EXIT:       RETURN
+
+             ENDPGM
+

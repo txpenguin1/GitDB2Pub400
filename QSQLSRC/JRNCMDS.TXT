@@ -1,0 +1,26 @@
+ -- *--------------------------------------------------------------------------*
+ -- * Name:  JrnCmds                                                           *
+ -- * Description: Journal Commands (have to reference)                        *
+ -- * Change Log:                                                              *
+ -- * Tag   Date       Name         Narrative                                  *
+ -- *----- ---------- ------------ ------------------------------------------  *
+ -- *      09/11/2025 S.Meisinger  Created                                     *
+ -- *--------------------------------------------------------------------------*
+
+-- Create Receiver
+CRTJRNRCV JRNRCV(TXPENGUIN2/PENGRCV001) TEXT('Journal Receiver 001')
+
+-- Create Journal
+CRTJRN JRN(TXPENGUIN2/PENGJRN) JRNRCV(TXPENGUIN2/PENGRCV001) MNGRCV(*SYSTEM)
+ DLTRCV(*YES) TEXT('TxPenguin2 Journal')
+
+-- Start Journal on a Table
+STRJRNPF FILE(TXPENGUIN2/ORDERHDR) JRN(TXPENGUIN2/PENGJRN) IMAGES(*BOTH) OMTJRNE(*OPNCLO)
+STRJRNPF FILE(TXPENGUIN2/ORDERDTL) JRN(TXPENGUIN2/PENGJRN) IMAGES(*BOTH) OMTJRNE(*OPNCLO)
+STRJRNPF FILE(TXPENGUIN2/CUSTOMER) JRN(TXPENGUIN2/PENGJRN) IMAGES(*BOTH) OMTJRNE(*OPNCLO)
+STRJRNPF FILE(TXPENGUIN2/ITEM) JRN(TXPENGUIN2/PENGJRN) IMAGES(*BOTH) OMTJRNE(*OPNCLO)
+STRJRNPF FILE(TXPENGUIN2/ITEMPRICE) JRN(TXPENGUIN2/PENGJRN) IMAGES(*BOTH) OMTJRNE(*OPNCLO)
+STRJRNPF FILE(TXPENGUIN2/MENUITEMS) JRN(TXPENGUIN2/PENGJRN) IMAGES(*BOTH) OMTJRNE(*OPNCLO)
+STRJRNPF FILE(TXPENGUIN2/MSTRRED) JRN(TXPENGUIN2/PENGJRN) IMAGES(*BOTH) OMTJRNE(*OPNCLO)
+
+

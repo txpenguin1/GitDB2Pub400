@@ -1,0 +1,11 @@
+             PGM
+
+             ADDLIBLE   LIB(TXPENGUIN2) POSITION(*FIRST)
+
+             CHGCURLIB  CURLIB(TXPENGUIN2)
+
+             ADDENVVAR  ENVVAR('ILE_DEBUGGER_1') +
+                          VALUE('ALLOW_WIDE_SCREEN') LEVEL(*JOB) +
+                          REPLACE(*YES)
+
+             ENDPGM

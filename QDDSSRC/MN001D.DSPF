@@ -1,0 +1,122 @@
+     /*---------------------------------------------------------------------
+     /* Program Name:  MN001D
+     /* Program Description:  Menu Item Master
+     /* Program Narrative:  Display the list of menu items.  User can choose to
+     /*                      add a new item to the list, maintain an item on
+     /*                      the list, or change the sequence of the items
+     /*                      to appear on the menu.
+     /*
+     /* AFTER COMPILE:  CHGDSPF FILE(MN001D) RSTDSP(*YES)
+     /*
+     /* Change Log:
+     /* Marker  Name         Date      Narrative
+     /* ------  -----------  --------  -------------------------------------
+     /*         S.Meisinger  10/05/25  New Program
+     /*---------------------------------------------------------------------
+     *************************************************************************
+     **  Screen Generics
+     *************************************************************************
+     A                                      DSPSIZ(27 132 *DS4)
+     A                                      CHGINPDFT(UL FE)
+     A                                      MSGLOC(27)
+     A                                      INDARA
+     A                                      ERRSFL
+     A                                      PRINT
+     A                                      HELP
+     *************************************************************************
+     **  Header Format
+     *************************************************************************
+     A          R HEADER1
+     A                                      OVERLAY
+     A            TITLEA         1A  P
+      *
+     A            ##PROG        10A  O  1  2
+     A            TITLE1        80A     1 26
+     A                                      DSPATR(&TITLEA)
+     A                                  1123DATE
+     A                                      EDTCDE(Y)
+     A                                  2  2USER
+     A            TITLE2        80A     2 26
+     A                                      DSPATR(&TITLEA)
+     A                                  2123TIME
+     *************************************************************************
+     **  Footer Format
+     *************************************************************************
+     A          R FOOTER1
+     A                                      OVERLAY
+     A            FERRMSGA       1A  P
+     A            FKEYSA         1A  P
+     A            FERRMSG       80A    24 22DSPATR(&FERRMSGA)
+     A            FKEYLINE     125A    26  3DSPATR(&FKEYSA)
+     *************************************************************************
+     **  Subfile Format
+     *************************************************************************
+     A          R SFL1                      SFL
+     A  98                                  SFLNXTCHG
+     A            SFLRRNR       10S 0H
+     A            SFLCSRROW     10S 0H
+     A            SFLREPPDN      6S 0H
+     A            SFLIOA         1A  P
+     A            SFLOA          1A  P
+     A            SFAOID         9Y 0H
+     A            SFL1RRN        5  0H
+     A            SFLOID         9Y 0H
+     A            SFLSEL         1A  B 10  7
+     A                                      DSPATR(&SFLIOA)
+     A            SFLSEQ         3S 0B 10 15
+     A                                      DSPATR(&SFLOA)
+     A            SFLNAME       40A  B 10 23
+     A                                      DSPATR(&SFLOA)
+     A            SFLTEXT       50A  B 10 71
+     A                                      DSPATR(&SFLOA)
+     *************************************************************************
+     **  Subfile Control Format
+     *************************************************************************
+     A          R SFLCTL1                   SFLCTL(SFL1)
+     A                                      CF03
+     A                                      CF06
+     A                                      CF09
+     A                                      SFLSIZ(20)
+     A                                      SFLPAG(12)
+     A                                      PAGEDOWN(27)
+     A                                      KEEP
+     A                                      BLINK
+     A                                      OVERLAY
+     A                                      PUTOVR
+     A                                      SFLCSRRRN(&CURSOR)
+     A                                      RTNCSRLOC(*MOUSE &ROW &COL)
+     A                                      RTNCSRLOC(&CSRRCD &CSRFLD &CSRPOS)
+     A  90                                  SFLDSP
+     A  91                                  SFLDSPCTL
+     A N91                                  SFLCLR
+     A  90                                  SFLEND(*MORE)
+     A  99                                  ALARM
+     **
+     A            ROW            3S 0H
+     A            COL            3S 0H
+     A            SFLRCD         4S 0H      SFLRCDNBR
+     A            CSRRCD        10A  H
+     A            CSRFLD        10A  H
+     A            CSRPOS         4S 0H
+     A            CURSOR         5S 0H
+     A            OPTIONA        1A  P
+     A            HEADERA        1A  P
+     A            OPTLINE      100A     7  5
+     A                                      DSPATR(&OPTIONA)
+     A                                  9  5'Select'
+     A                                      DSPATR(&HEADERA)
+     A                                  9 13'Sequence'
+     A                                      DSPATR(&HEADERA)
+     A                                  9 23'Menu Name'
+     A                                      DSPATR(&HEADERA)
+     A                                  9 71'Menu Text'
+     A                                      DSPATR(&HEADERA)
+     *************************************************************************
+     **  Assume Format
+     *************************************************************************
+     A          R DUMMY1
+     A                                      OVERLAY
+     A                                      PUTOVR
+     A                                  5  5' '
+     ***********************************************************************
+

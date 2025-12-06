@@ -1,0 +1,5 @@
+             STRPGMEXP  PGMLVL(*CURRENT) SIGNATURE('Signature_Name')
+                EXPORT     SYMBOL("PROCEDURE1")
+                EXPORT     SYMBOL("PROCEDURE2")
+             ENDPGMEXP
+

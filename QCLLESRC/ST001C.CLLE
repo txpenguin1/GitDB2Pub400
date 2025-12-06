@@ -1,0 +1,9 @@
+             PGM
+
+             DCL        VAR(&USER) TYPE(*CHAR)
+
+             RTVJOBA    USER(&USER)
+
+             CALL       PGM(ST001R) PARM((&USER))
+
+             ENDPGM

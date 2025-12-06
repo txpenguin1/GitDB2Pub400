@@ -1,0 +1,4 @@
+             STRPGMEXP  PGMLVL(*CURRENT) SIGNATURE('Signature_Name')
+                EXPORT     SYMBOL("CenterTitle")
+             ENDPGMEXP
+

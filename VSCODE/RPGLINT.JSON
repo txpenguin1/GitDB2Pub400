@@ -1,0 +1,19 @@
+{
+  "indent": 2,
+  "PrototypeCheck": true,
+  "NoOCCURS": false,
+  "NoSELECTAll": true,
+  "UppercaseConstants": false,
+  "IncorrectVariableCase": true,
+  "NoSQLJoins": false,
+  "PrettyComments": true,
+  "NoGlobalSubroutines": true,
+  "RequiresParameter": true,
+  "RequiresProcedureDescription": true,
+  "NoExternalTo": [
+    "QCMD",
+    "QP2TERM",
+    "QSH",
+    "SYSTEM"
+  ]
+}
